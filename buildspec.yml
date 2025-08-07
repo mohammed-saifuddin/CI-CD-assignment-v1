@@ -1,0 +1,60 @@
+version: 0.2
+
+env:
+   variables:
+  
+    IMAGE_TAG: "latest"
+    AWS_REGION : ap-south-1
+    AWS_ACCOUNT_ID : 129783607175
+    
+
+phases:
+  install:
+    
+      commands:
+
+      - apt-get update -y
+      - apt-get install -y unzip
+      - rm -rf terraform
+      - curl -fsSL https://releases.hashicorp.com/terraform/1.12.2/terraform_1.12.2_linux_amd64.zip -o terraform.zip
+      - unzip -o terraform.zip
+      
+      - chmod +x terraform
+      - mv terraform /usr/local/bin/
+      
+      - terraform version
+      
+      
+      
+      
+  pre_build:
+    commands:
+      
+      - echo Logging in to Amazon ECR...
+      - aws ecr get-login-password --region $AWS_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com
+      
+
+  build:
+    commands:
+      - docker build -t dockerized-web-app:$IMAGE_TAG -f app/Dockerfile app
+      - docker tag dockerized-web-app:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/dockerized-web-app:$IMAGE_TAG
+      - echo Pushing Docker image to ECR...
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_REGION.amazonaws.com/dockerized-web-app:$IMAGE_TAG
+      - echo Running Terraform...
+      - ls
+      - pwd
+      - cd terraform1
+        
+      
+      - terraform init
+      - terraform plan  -out=tfplan.out
+      - terraform apply -auto-approve 
+      
+  post_build:
+    commands:
+      - echo Build completed successfully
+
+artifacts:
+  files:
+    - appspec.yml
+    - scripts/*
