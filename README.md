@@ -44,7 +44,7 @@ ci-cd-assignment/
 │   │   └── codepipeline.tf
 |   |   └── iam.tf
 │   │   └── variables.tf
-│   ├── deploy/                 # Deployment-related scripts
+│   ├── deploy/                 # Deployment scripts
 │   │   └── scripts/
         └── start_server.sh
 │   ├── infrastructure/        # Core infrastructure configuration
