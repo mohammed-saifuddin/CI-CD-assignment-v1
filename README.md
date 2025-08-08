@@ -47,7 +47,6 @@ ci-cd-assignment/
 │   ├── deploy/                 # Deployment-related scripts
 │   │   └── scripts/
         └── start_server.sh
-│   │   
 │   ├── infrastructure/        # Core infrastructure configuration
 │   │   ├── cloudwatch.tf
 │   │   ├── ec2_asg_alb.tf
