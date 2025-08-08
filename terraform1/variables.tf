@@ -5,11 +5,11 @@ variable "availability_zones" {}
 variable "instance_type" {}
 variable "key_name" {}
 
-# variable "github_oauth_token" {
-#   description = "GitHub OAuth token to connect CodePipeline with GitHub"
-#   type        = string
-#   sensitive   = true
-# }
+variable "github_token" {
+  description = "GitHub Personal Access Token"
+  default     = data.aws_ssm_parameter.github_token.value
+}
+
 variable "artifact_bucket_name" {
  
 }

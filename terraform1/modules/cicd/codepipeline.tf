@@ -30,7 +30,7 @@ resource "aws_codepipeline" "app_pipeline" {
         Owner      = "mohammed-saifuddin"
         Repo       = "CI-CD-assignment-v1"
         Branch     = "main"
-        OAuthToken = var.github_oauth_token
+        OAuthToken = var.github_token
       }
     }
   }
