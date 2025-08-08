@@ -26,7 +26,7 @@ The application is deployed to a high-availability EC2 Auto Scaling Group, with 
 
 ```
 ci-cd-assignment/
-├── app/                        # Flask or Nginx application source
+├── app/                        # Flask application source
 │   ├── Dockerfile
 │   └── app.py / index.html
 │
