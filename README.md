@@ -110,7 +110,7 @@ aws ssm put-parameter --name "github-token" --value "<YOUR_TOKEN>" --type "Secur
 ### 3. Terraform Provisioning
 
 ```bash
-cd terraform/infrastructure
+cd terraform1
 terraform init
 terraform plan -out=tfplan
 terraform apply tfplan
