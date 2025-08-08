@@ -2,12 +2,10 @@ provider "aws" {
   region = "ap-south-1"
 }
 
-data "aws_secretsmanager_secret_version" "github_token" {
-  secret_id = "github-oauth-token"
+resource "some_resource" "example" {
+  github_token = var.github_token
 }
-locals {
-  github_oauth_token = data.aws_secretsmanager_secret_version.github_token.secret_id
-}
+
 
 terraform {
   required_version = ">= 1.3.0"
@@ -30,7 +28,7 @@ module "infra" {
 
 module "cicd" {
   source = "./modules/cicd"
-  github_oauth_token    = local.github_oauth_token
+  github_oauth_token    = var.github_token
   artifact_bucket_name = var.artifact_bucket_name
 }
 
